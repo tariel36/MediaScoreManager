@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+project/MediaScoreManager/Gui/Msm.Gui/Assets/Settings/appsettings.dev.json

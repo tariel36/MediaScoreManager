@@ -1,0 +1,44 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using Msm.Gui.Infrastructure.Paths.Contract;
+using Msm.Gui.Infrastructure.Paths.Providers;
+
+namespace Msm.Gui.Infrastructure.Paths
+{
+    /// <summary>
+    ///     Provides extension methods for configuring path-related services in the dependency injection container for WPF
+    ///     applications.
+    /// </summary>
+    internal static class PathsConfigurationExtensions
+    {
+        /// <summary>
+        ///     Configures the path-related services in the dependency injection container.
+        /// </summary>
+        /// <param name="serviceCollection">The <see cref="IServiceCollection" /> to configure.</param>
+        /// <returns>The configured <see cref="IServiceCollection" />.</returns>
+        public static IServiceCollection UsePaths(this IServiceCollection serviceCollection)
+        {
+            return serviceCollection.AddTransient()
+                .AddSingleton();
+        }
+
+        /// <summary>
+        ///     Adds transient services related to paths to the dependency injection container.
+        /// </summary>
+        /// <param name="serviceCollection">The <see cref="IServiceCollection" /> to configure.</param>
+        /// <returns>The configured <see cref="IServiceCollection" />.</returns>
+        private static IServiceCollection AddTransient(this IServiceCollection serviceCollection)
+        {
+            return serviceCollection;
+        }
+
+        /// <summary>
+        ///     Adds singleton services related to paths to the dependency injection container.
+        /// </summary>
+        /// <param name="serviceCollection">The <see cref="IServiceCollection" /> to configure.</param>
+        /// <returns>The configured <see cref="IServiceCollection" />.</returns>
+        private static IServiceCollection AddSingleton(this IServiceCollection serviceCollection)
+        {
+            return serviceCollection.AddSingleton<IPathsProvider, PathsProvider>();
+        }
+    }
+}

@@ -1,0 +1,65 @@
+﻿<syncfusion:ChromelessWindow
+    x:Class="Msm.Gui.Features.ShellFeature.Shell.Views.ShellWindow"
+    x:ClassModifier="internal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sfSkinManager="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:viewModels="clr-namespace:Msm.Gui.Features.ShellFeature.Shell.ViewModels"
+    xmlns:xamlExtensions="clr-namespace:Msm.Core.Wpf.XamlExtensions;assembly=Msm.Core.Wpf"
+    Title="{Binding WindowTitle}"
+    sfSkinManager:SfSkinManager.VisualStyle="Office2019White"
+    mc:Ignorable="d"
+    MinWidth="500"
+    MinHeight="350"
+    d:DataContext="{d:DesignInstance Type=viewModels:ShellViewModel, IsDesignTimeCreatable=True}" d:DesignHeight="352.098" d:DesignWidth="862.365">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <syncfusion:Ribbon x:Name="RRibbon" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
+            <syncfusion:RibbonTab Caption="{xamlExtensions:I18N ShellWindow_Home}" IsChecked="True">
+                <syncfusion:RibbonBar Width="150" Header="{xamlExtensions:I18N ShellWindow_Group1}" />
+                <syncfusion:RibbonBar Width="150" Header="{xamlExtensions:I18N ShellWindow_Group2}" />
+            </syncfusion:RibbonTab>
+
+            <syncfusion:RibbonTab Caption="{xamlExtensions:I18N ShellWindow_SendReceive}" IsChecked="False" />
+
+            <syncfusion:RibbonTab Caption="{xamlExtensions:I18N ShellWindow_Folder}" IsChecked="False" />
+
+            <syncfusion:RibbonTab Caption="{xamlExtensions:I18N ShellWindow_View}" IsChecked="False">
+                <syncfusion:RibbonBar Header="{xamlExtensions:I18N ShellWindow_View}">
+                    <syncfusion:ComboBoxAdv Focusable="False" SelectedIndex="0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding CmdViewSelectionChanged}"
+                                                       CommandParameter="{Binding SelectedValue.Content, RelativeSource={RelativeSource AncestorType={x:Type syncfusion:ComboBoxAdv}}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <!-- TODO this should be view name from const -->
+                        <syncfusion:ComboBoxItemAdv
+                            Content="MainPage"
+                            AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" />
+                    </syncfusion:ComboBoxAdv>
+                </syncfusion:RibbonBar>
+            </syncfusion:RibbonTab>
+
+            <syncfusion:Ribbon.BackStage>
+                <syncfusion:Backstage />
+            </syncfusion:Ribbon.BackStage>
+        </syncfusion:Ribbon>
+
+        <Frame x:Name="FShellFrame"
+               Grid.Row="1"
+               Grid.Column="0"
+               Focusable="False"
+               NavigationUIVisibility="Hidden" />
+
+    </Grid>
+</syncfusion:ChromelessWindow>
